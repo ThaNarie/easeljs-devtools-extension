@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../style/panel.css"/>
+		<link rel="stylesheet" type="text/css" href="../style/devtools.css"/>
+		<link rel="stylesheet" type="text/css" href="../style/dataGrid.css"/>
+		<link rel="stylesheet" type="text/css" href="../style/sourcesPanel.css"/>
+		<link rel="stylesheet" type="text/css" href="../style/sourcesView.css"/>
+		<link rel="stylesheet" type="text/css" href="../style/navigatorView.css"/>
+
+		<script type="text/javascript" src="script/knockout.js"></script>
+		<script type="text/javascript" src="script/knockout.punches.js"></script>
+
+	</head>
+	<body class="undocked platform-windows platform-windows-vista port-undefined inactive">
+
+		<div class="view split-view hbox visible" style="height: 100%;">
+			<div class="split-view-resizer ew-resizer-widget" style="right: 500px; margin-right: -3px;">
+				<div class="split-view-resizer-border"></div>
+			</div>
+			<div class="split-view-contents split-view-main vbox visible split-view-contents-first">
+				<!-- display tree -->
+				<div class="view vbox tabbed-pane navigator-tabbed-pane visible" tabindex="-1">
+					<div class="tabbed-pane-header">
+						<div class="tabbed-pane-header-contents">
+							<div class="tabbed-pane-header-tabs">
+								<div class="tabbed-pane-header-tab selected" id="tab-Styles" tabindex="-1">
+									<span class="tabbed-pane-header-tab-title" title="">Display tree</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tabbed-pane-content">
+						<div class="view vbox navigator-container visible">
+							<div class="outline-disclosure navigator">
+								<ol tabindex="0" data-bind="template: {name: 'tree-item', foreach: displaylist}">
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /display tree -->
+			</div>
+			<div class="split-view-contents split-view-sidebar vbox visible split-view-contents-second" style="flex-basis: 500px;">
+				<!-- properties -->
+				<div class="view vbox visible">
+					<div class="sidebar-pane-stack flex-auto visible">
+						<div class="sidebar-pane-title expanded" tabindex="0">
+							Properties
+							<div class="sidebar-pane-toolbar">
+								<button class="pane-title-button refresh" title="Refresh"></button>
+							</div>
+						</div>
+						<div class="sidebar-pane visible">
+							<div class="body">
+								<div class="section expanded">
+									<div class="hidden">
+										<div class="subtitle"></div>
+										<div class="title"></div>
+									</div>
+									<ol class="properties properties-tree monospace watch-expressions" data-bind="template: {name: 'property-item', foreach: propertyList}">
+									</ol>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /properties -->
+			</div>
+		</div>
+
+		<script type="text/html" id="tree-item">
+			<li class="" data-bind="css: {
+				'selected': $root.selectedItem() == $data,
+				'parent': $data.children && $data.children.length > 0,
+				'expanded': $data.children && $data.children.length > 0,
+				'navigator-folder-tree-item': $data.children && $data.children.length > 0,
+				'navigator-document-tree-item': !$data.children || $data.children.length == 0
+			}, click: $root.selectItem">
+				<div class="selection"></div>
+				<img class="icon">
+				<div class="base-navigator-tree-element-title" data-bind="text: id + ($data.name ? ' (' + name + ')' : '')"></div>
+			</li>
+			<!-- ko if: $data.children -->
+			<ol class="children" data-bind="css: {expanded: true}, template: {name: 'tree-item', foreach: $data.children}">
+			</ol>
+			<!-- /ko -->
+		</script>
+
+		<script type="text/html" id="property-item">
+			<li title="" data-bind="css: {'parent': type == 'object'}">
+				<input type="button" title="Delete watch expression." class="enabled-button delete-button">
+				<span class="name">{{key}}</span><span class="separator">: </span>
+				<span data-bind="attr: {title: value}, css: 'console-formatted-' + type">{{value}}</span>
+			</li>
+		</script>
+
+		<script type="text/javascript" src="script/content-eval.js"></script>
+		<script type="text/javascript" src="script/panel.js"></script>
+	</body>
+</html>

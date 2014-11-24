@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "Devtools EaselJS",
+    "description": "A Google Chrome Devtools extension that allows you to inspect your EaselJS Canvas display tree.",
+    "version": "0.0.1",
+    "devtools_page": "devtools.html",
+    "background": {
+    	"persistent": true,
+        "scripts": ["background.js"]
+    },
+//    "content_scripts": [{
+//    	"matches": [
+//		    "http://*/*",
+//		    "https://*/*",
+//		    "file:///*/*"
+//		],
+//        "css": ["content/content.css"],
+//		"js": ["content/content.js"],
+//		"run_at": "document_end"
+//    }],
+    "permissions": [
+		"tabs",
+		"http://*/*",
+		"https://*/*",
+		"file:///*/*"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

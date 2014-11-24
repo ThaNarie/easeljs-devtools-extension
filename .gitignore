@@ -1,0 +1,9 @@
+*/.idea
+.idea
+.tscache
+/build
+/docs
+/tools/build/.sass-cache
+/tools/build/node_modules
+/deploy/htdocs/coverage
+.DS_Store
